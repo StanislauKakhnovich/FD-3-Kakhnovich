@@ -10,6 +10,7 @@
       headPrice: React.PropTypes.string.isRequired,
       headImg: React.PropTypes.string.isRequired,
       headQuantity: React.PropTypes.string.isRequired,
+      headControl: React.PropTypes.string.isRequired,
     }),
 
     products: React.PropTypes.array.isRequired,
@@ -28,17 +29,24 @@
   render: function() {
 
     var productsCode=this.props.products.map( elem =>
-        React.DOM.div({key:elem.code,className:'Product'},
-          React.DOM.span({className:'Description-Product'},elem.quantity),
-          React.DOM.img({className:'Description-Product', src:elem.imgURL}),
-          React.DOM.span({className:'Description-Product'},elem.price),
-          React.DOM.span({className:'Name'},elem.nameProduct),
-        )
+      React.createElement(Products, {key: elem.code,
+        code: elem.code,
+        nameProduct: elem.nameProduct,
+        price: elem.price,
+        quantity: elem.quantity,
+        imgURL: elem.imgURL,
+      })
       );
-    return React.DOM.table( {border: 1}, 
+
+    return React.DOM.table( {className:'Ishop'}, 
       React.createElement( NameShop, {name:this.props.name} ),
-      React.createElement( HeadTable, {head:this.props.head} ),
-      React.DOM.div( {className:'Products'}, productsCode ),
+      React.createElement( HeadTable, {headNameProduct: this.props.head.headNameProduct,
+        headPrice: this.props.head.headPrice,
+        headImg: this.props.head.headImg,
+        headQuantity: this.props.head.headQuantity,
+        headControl: this.props.head.headControl,
+      } ),
+      React.DOM.tbody( {className:'Products'}, productsCode ),
     );
   },
 
