@@ -29,11 +29,15 @@
   getInitialState: function() {
     return { 
       selectedProductCode: null,
+      selectedProductDelete: null,
+      selectedButtonDelete: null,
     };
   },
 
-  productSelected: function(code) {
+  productSelected: function(code, buttonSelection) {  
     this.setState( {selectedProductCode:code} );
+    this.setState( {selectedProductDelete:code} );
+    this.setState( {selectedButtonDelete:buttonSelection} );
   },
 
   render: function() {
@@ -47,7 +51,12 @@
         imgURL: elem.imgURL,
         cbSelected:this.productSelected,
         selectedProductCode:this.state.selectedProductCode,
+        selectedButtonDelete:this.state.selectedButtonDelete,
+        selectedProductDelete:this.state.selectedProductDelete,
         products: this.props.products,
+        control: this.props.control,
+        
+
       })
       );
 

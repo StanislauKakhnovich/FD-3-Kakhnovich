@@ -5,6 +5,7 @@ var Products = React.createClass({
     propTypes: {
       cbSelected: React.PropTypes.func.isRequired,
       selectedProductCode: React.PropTypes.number,
+      selectedButtonDelete: React.PropTypes.bool,
       products: React.PropTypes.array.isRequired,
       products:React.PropTypes.arrayOf(
       React.PropTypes.shape({
@@ -19,21 +20,25 @@ var Products = React.createClass({
     },
 
     productClicked: function(EO) {
-      this.props.cbSelected(this.props.code);
+
+        if (EO.target.value !== 'Удалить') return this.props.cbSelected(this.props.code, true);
+        if (EO.target.value === 'Удалить') return this.props.cbSelected(this.props.code, false);
+       
     },
     
-    productDelete: function() {
-      if (this.props.selectedProductCode===this.props.code) {
-        var question = confirm(`Удалить ${this.props.selectedProductCode} товар?`);
+    productDelete: function(EO) {
+      if (this.props.selectedProductDelete===this.props.code) {
+        var question = confirm(`Удалить ${this.props.selectedProductDelete} товар?`);
         question?delete this.props.products[this.props.selectedProductCode-1]:null;
+        
       }
     },
     
   
     render: function() {
         return React.DOM.tr( {className:'Products', 
-        style:{backgroundColor:(this.props.selectedProductCode===this.props.code)?'red':'transparent'},
         onClick:this.productClicked,
+        style:{backgroundColor:(this.props.selectedProductCode===this.props.code && this.props.selectedButtonDelete)?'red':'transparent'},
         },
           React.DOM.td({className:'NameProduct'},this.props.nameProduct),
           React.DOM.td({className:'Price'},this.props.price),
@@ -42,7 +47,7 @@ var Products = React.createClass({
           React.DOM.img({className:'ImgURL', src:this.props.imgURL}),
           ),
           React.DOM.td(null,
-            React.DOM.input( {type:'button',value:'Удалить',className:'DeleteButton',onClick:this.productDelete} )
+            React.DOM.input( {type:'button',value:'Удалить',className:'DeleteButton',onClick:this.productDelete}, this.props.control )
             ),
         );
   
