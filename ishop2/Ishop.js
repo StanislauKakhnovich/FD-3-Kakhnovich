@@ -22,8 +22,18 @@
         quantity: React.PropTypes.number.isRequired,
         imgURL: React.PropTypes.string.isRequired,
       })
-    )
+    ),
 
+  },
+
+  getInitialState: function() {
+    return { 
+      selectedProductCode: null,
+    };
+  },
+
+  productSelected: function(code) {
+    this.setState( {selectedProductCode:code} );
   },
 
   render: function() {
@@ -35,6 +45,9 @@
         price: elem.price,
         quantity: elem.quantity,
         imgURL: elem.imgURL,
+        cbSelected:this.productSelected,
+        selectedProductCode:this.state.selectedProductCode,
+        products: this.props.products,
       })
       );
 
