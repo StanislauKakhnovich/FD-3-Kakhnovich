@@ -1,12 +1,4 @@
-﻿.Ishop {
-    margin: 0 auto;
-    
-}
-table {
-    border-collapse: collapse;
-}
-
-td, th {
-    border: 2px solid black;
-    padding: 5px;
+﻿.Words {
+    display: block;
+    margin-left: 20px;
 }

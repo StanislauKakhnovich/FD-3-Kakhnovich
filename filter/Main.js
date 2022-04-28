@@ -3,8 +3,8 @@
   displayName: 'Main',
 
   propTypes: {
-    words: React.PropTypes.array.isRequired,
-    words:React.PropTypes.arrayOf(
+    startWords: React.PropTypes.array.isRequired,
+    startWords:React.PropTypes.arrayOf(
       React.PropTypes.string.isRequired,
     ),
 
@@ -12,28 +12,27 @@
 
   getInitialState: function() {
     return { 
-      selectedProductCode: null,
-      selectedProductDelete: null,
-      selectedButtonDelete: null,
+      words: this.props.startWords,
     };
   },
 
-  productSelected: function(code, buttonSelection) {  
-    this.setState( {selectedProductCode:code} );
-    this.setState( {selectedProductDelete:code} );
-    this.setState( {selectedButtonDelete:buttonSelection} );
+  sortWords: function() {
+    this.setState( {words: this.state.words.sort()} ); 
   },
 
   render: function() {
 
-    var wordsCode=this.props.words.map( (elem, index) =>
+    var wordsCode=this.state.words.map( (elem, index) =>
       React.createElement(List, {key: index,
         word: elem,
-      })
+        })
       );
 
     return React.DOM.div( {className:'Main'}, 
-      React.DOM.select( {className:'Words', size:this.props.words.length}, wordsCode ),
+      React.DOM.input({type:'checkbox', className:'Checkbox',onClick:this.sortWords}),
+      React.DOM.input({type:'text', name:'inputtext', className:'Text'}),
+      React.DOM.input( {type:'button',value:'Сброс',className:'Reset',onClick:this.Resetwords}),
+      React.DOM.select( {name:'selecttext',className:'Words', size:this.state.words.length}, wordsCode ),
     );
   },
 
