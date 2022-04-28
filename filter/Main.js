@@ -3,7 +3,7 @@
   displayName: 'Main',
 
   propTypes: {
-    startWords: React.PropTypes.array.isRequired,
+    startWords:React.PropTypes.array.isRequired,
     startWords:React.PropTypes.arrayOf(
       React.PropTypes.string.isRequired,
     ),
@@ -13,18 +13,26 @@
   getInitialState: function() {
     return { 
       words: this.props.startWords,
-      arr: null,
+      arr: this.props.startWords,
     };
   },
 
-  sortWords: function() {
-    this.setState( {arr: this.props.startWords} ); 
-    this.setState( {words: this.state.words.sort()} ); 
+  sortWords: function(EO) {
+    
+    if (EO.target.checked) {
+      this.setState( {words: this.state.words.sort()} ); 
+      
+    }
+    if (!EO.target.checked) {
+      this.setState( {words: this.state.arr} ); 
+      console.log(this.state.words);
+    }
+    
   },
 
   resetWords: function() {
     this.setState( {words: this.state.arr} );
-    console.log(this.props.startWords);
+    console.log(this.state.arr);
   },
 
   changeList: function(EO) {
@@ -37,6 +45,7 @@
     var wordsCode=this.state.words.map( (elem, index) =>
       React.createElement(List, {key: index,
         word: elem,
+        valueNumber: index,
         })
       );
 

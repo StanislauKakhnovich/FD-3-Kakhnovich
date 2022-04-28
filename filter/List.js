@@ -13,7 +13,7 @@ var List = React.createClass({
     
   
     render: function() {
-      return React.DOM.option({className:'Word'},this.props.word)
+      return React.DOM.option({className:'Word', value:this.props.valueNumber},this.props.word)
     }
   });
   
