@@ -20,16 +20,17 @@ var Products = React.createClass({
     },
 
     productClicked: function(EO) {
-
-        if (EO.target.value !== 'Удалить') return this.props.cbSelected(this.props.code, true);
-        if (EO.target.value === 'Удалить') return this.props.cbSelected(this.props.code, false);
-       
+        if (EO.target.value !== 'Удалить') {
+          return this.props.cbSelected(this.props.code);
+        }
+        
     },
     
     productDelete: function(EO) {
+      this.props.cbDelete(this.props.code);
       if (this.props.selectedProductDelete===this.props.code) {
         var question = confirm(`Удалить ${this.props.selectedProductDelete} товар?`);
-        question?delete this.props.products[this.props.selectedProductCode-1]:null;
+        question?delete this.props.products[this.props.selectedProductDelete-1]:null;
         
       }
     },
@@ -38,7 +39,7 @@ var Products = React.createClass({
     render: function() {
         return React.DOM.tr( {className:'Products', 
         onClick:this.productClicked,
-        style:{backgroundColor:(this.props.selectedProductCode===this.props.code && this.props.selectedButtonDelete)?'red':'transparent'},
+        style:{backgroundColor:(this.props.selectedProductCode===this.props.code)?'red':'transparent'},
         },
           React.DOM.td({className:'NameProduct'},this.props.nameProduct),
           React.DOM.td({className:'Price'},this.props.price),
@@ -47,7 +48,7 @@ var Products = React.createClass({
           React.DOM.img({className:'ImgURL', src:this.props.imgURL}),
           ),
           React.DOM.td(null,
-            React.DOM.input( {type:'button',value:'Удалить',className:'DeleteButton',onClick:this.productDelete}, this.props.control )
+            React.DOM.input( {type:'button',value:'Удалить',className:'DeleteButton',onClick:this.productDelete,} )
             ),
         );
   

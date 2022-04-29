@@ -30,14 +30,15 @@
     return { 
       selectedProductCode: null,
       selectedProductDelete: null,
-      selectedButtonDelete: null,
     };
   },
 
-  productSelected: function(code, buttonSelection) {  
+  productSelected: function(code) {  
     this.setState( {selectedProductCode:code} );
+  },
+
+  productDelete: function(code) {  
     this.setState( {selectedProductDelete:code} );
-    this.setState( {selectedButtonDelete:buttonSelection} );
   },
 
   render: function() {
@@ -50,6 +51,7 @@
         quantity: elem.quantity,
         imgURL: elem.imgURL,
         cbSelected:this.productSelected,
+        cbDelete:this.productDelete,
         selectedProductCode:this.state.selectedProductCode,
         selectedButtonDelete:this.state.selectedButtonDelete,
         selectedProductDelete:this.state.selectedProductDelete,
