@@ -1,4 +1,4 @@
-.Products {
+.Product {
     font-size: 14px;
 }
 .Price,
@@ -12,3 +12,10 @@
     width: 300px;
 }
 
+.Selected {
+    background-color: red;
+}
+
+.Unselected {
+    background-color: transparent;
+}

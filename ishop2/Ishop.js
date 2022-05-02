@@ -29,7 +29,8 @@
   getInitialState: function() {
     return { 
       selectedProductCode: null,
-      selectedProductDelete: null,
+      workListProducts: this.props.products,
+      isSelected: false,
     };
   },
 
@@ -38,13 +39,14 @@
   },
 
   productDelete: function(code) {  
-    this.setState( {selectedProductDelete:code} );
+    var question = confirm(`Удалить ${code} товар?`);
+    if (question) this.setState( {workListProducts: this.state.workListProducts.filter(elem => elem.code !== code)} );
   },
 
   render: function() {
 
-    var productsCode=this.props.products.map( elem =>
-      React.createElement(Products, {key: elem.code,
+    var productsCode=this.state.workListProducts.map( elem =>
+      React.createElement(Product, {key: elem.code,
         code: elem.code,
         nameProduct: elem.nameProduct,
         price: elem.price,
@@ -53,12 +55,9 @@
         cbSelected:this.productSelected,
         cbDelete:this.productDelete,
         selectedProductCode:this.state.selectedProductCode,
-        selectedButtonDelete:this.state.selectedButtonDelete,
         selectedProductDelete:this.state.selectedProductDelete,
-        products: this.props.products,
-        control: this.props.control,
-        
-
+        products: this.state.workListProducts,
+        isSelected: (this.state.selectedProductCode === elem.code),
       })
       );
 
