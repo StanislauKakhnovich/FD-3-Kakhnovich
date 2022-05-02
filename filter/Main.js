@@ -11,7 +11,7 @@
   },
   getInitialState: function() {
     return { 
-      lines: Object.values(Object.assign({},this.props.linesOriginal)),
+      copyChange: Object.values(Object.assign({},this.props.linesOriginal)),
     };
   },
   
@@ -19,7 +19,7 @@
  
     return React.DOM.div( {className:'Main'}, 
     React.createElement( Form, {linesOriginal:this.props.linesOriginal,
-      lines: this.state.lines,
+      copyChange: this.state.copyChange,
     } ),
     );
   },

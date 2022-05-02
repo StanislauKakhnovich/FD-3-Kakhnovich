@@ -3,9 +3,6 @@ var Form = React.createClass({
     displayName: 'Form',
   
     propTypes: {
-    //   sortFlag:React.PropTypes.bool.isRequired,
-    //   filterStr:React.PropTypes.string.isRequired,
-    //   lines: React.PropTypes.array.isRequired,
       linesOriginal:React.PropTypes.array.isRequired,
       linesOriginal:React.PropTypes.arrayOf(
         React.PropTypes.string.isRequired,
@@ -13,17 +10,17 @@ var Form = React.createClass({
   
     },
   
-  
     getInitialState: function() {
       return { 
         filterStr: "",
         sortFlag: false,
-        lines: this.props.lines,
+        lines: this.props.copyChange,
       };
     },
   
     sortFlagChanged: function (eo) {
       this.setState ({sortFlag: eo.target.checked}, this.processList);
+      console.log(this.state.sortFlag);
     },
   
     filterStrChanged: function (eo) {
@@ -32,19 +29,19 @@ var Form = React.createClass({
     },
   
     processList: function() {
-      var arr = this.props.lines;
+      var arr = Object.values(Object.assign({},this.props.copyChange)) ;
       if (this.state.sortFlag) {
         arr.sort();
-        if (this.state.filterStr) {
-          arr = arr.filter(elem => elem.includes(this.state.filterStr));
-        }
+         if (this.state.filterStr) {
+           arr = arr.filter(elem => elem.includes(this.state.filterStr));
+         }
         this.setState ({lines: arr}); 
       } 
       else if (this.state.filterStr) {
         arr = arr.filter(elem => elem.includes(this.state.filterStr));
-          if (this.state.sortFlag) {
-           arr.sort();
-         }
+            if (this.state.sortFlag) {
+             arr.sort();
+           }
         this.setState ({lines: arr}); 
       } else {
         this.setState ({lines: this.props.linesOriginal}); 
