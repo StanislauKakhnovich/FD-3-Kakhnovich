@@ -1,0 +1,21 @@
+.Product {
+    font-size: 14px;
+}
+.Price,
+.Quantity,
+.DeleteButton {
+    text-align: center;
+    font-size: 16px;
+}
+
+.ImgURL {
+    width: 300px;
+}
+
+.Selected {
+    background-color: red;
+}
+
+.Unselected {
+    background-color: transparent;
+}
