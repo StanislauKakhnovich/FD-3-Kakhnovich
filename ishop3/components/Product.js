@@ -1,3 +1,7 @@
+var React = require('react');
+
+require('./Product.css');
+
 var Product = React.createClass({
 
     displayName: 'Product',
@@ -48,3 +52,5 @@ var Product = React.createClass({
     },
   
   });
+
+module.exports = Product;

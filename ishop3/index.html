@@ -3,39 +3,10 @@
 <head> 
   <meta charset="utf-8" />
   <title>Магазин</title>
+  <link rel="stylesheet" type="text/css" href="bundle.css" />
 </head> 
-<body> 
-  
+<body>  
   <div id="container"></div> 
-      
-  <script src="https://unpkg.com/react@15/dist/react.js"></script> 
-  <script src="https://unpkg.com/react-dom@15/dist/react-dom.js"></script> 
-      
-  <script src="Ishop.js"></script>
-  <link rel="stylesheet" type="text/css" href="Ishop.css" />
-  <script src="NameShop.js"></script>
-  <link rel="stylesheet" type="text/css" href="NameShop.css" />
-  <script src="HeadTable.js"></script>
-  <link rel="stylesheet" type="text/css" href="HeadTable.css" />
-  <script src="Product.js"></script>
-  <link rel="stylesheet" type="text/css" href="Product.css" />
-
-  <script>
-
-    var nameShop='Интернет-магазин "Все для электротехнических работ"';
-    var headText={headNameProduct: 'Наименование продукции', headPrice: 'Цена, руб', headImg: 'Изображение товара', headQuantity: 'Количество, шт', headControl: 'Контроль'};
-    var productsArr=[ 
-      {nameProduct:'АВТ. ВЫКЛЮЧАТЕЛЬ PL4-C10/3, 3P, 10A, ХАР-КА C, 4.5KA, 3M',code:1,price:28.95,imgURL:'https://lsys.by/upload/iblock/728/avuldor9cwv9oc1n4lc3m8rjjz4z7u7f.jpg',quantity:1}, 
-      {nameProduct:'АВТ. ВЫКЛЮЧАТЕЛЬ PL4-C16/1, 1P, 16A, ХАР-КА C, 4.5KA, 1M',code:2,price:7.75,imgURL:'https://lsys.by/upload/iblock/a68/2jmsybozn44wp1t66xhfqt8f37346j0k.jpg',quantity:1331}, 
-      {nameProduct:'АВТ. ВЫКЛЮЧАТЕЛЬ PL4-C16/1, 1P, 16A, ХАР-КА C, 4.5KA, 1M',code:3,price:7.67,imgURL:'https://lsys.by/upload/iblock/bb0/i0exmqf8p1pmuspxyql5888b3s0p2916.jpg',quantity:173},
-    ];
-    
-    ReactDOM.render(
-      React.createElement(Ishop,{name:nameShop,head:headText,products:productsArr}), 
-      document.getElementById('container') 
-    );
-
-  </script>
-
+  <script src="bundle.js"></script>
 </body> 
 </html>

@@ -1,4 +1,13 @@
-﻿var Ishop = React.createClass({
+﻿var React = require('react');
+
+require('./Ishop.css');
+
+var NameShop = require('./NameShop');
+var HeadTable = require('./HeadTable');
+var Product = require('./Product');
+
+
+var Ishop = React.createClass({
 
   displayName: 'Ishop',
 
@@ -74,3 +83,5 @@
   },
 
 });
+
+module.exports = Ishop;

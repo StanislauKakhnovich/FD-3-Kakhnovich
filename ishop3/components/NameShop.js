@@ -1,3 +1,7 @@
+var React = require('react');
+
+require('./NameShop.css');
+
 var NameShop = React.createClass({
 
     displayName: 'NameShop',
@@ -11,3 +15,5 @@ var NameShop = React.createClass({
     },
   
   });
+
+module.exports = NameShop;

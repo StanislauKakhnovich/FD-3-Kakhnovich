@@ -1,0 +1,42 @@
+.Ishop {
+    margin: 0 auto;
+    
+}
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 2px solid black;
+    padding: 5px;
+}.NameShop {
+    font-size: 24px;
+    font-weight: 900;
+    margin: 20px;
+}.HeadTable {
+    font-size: 18px;
+}
+
+
+.Product {
+    font-size: 14px;
+}
+.Price,
+.Quantity,
+.DeleteButton {
+    text-align: center;
+    font-size: 16px;
+}
+
+.ImgURL {
+    width: 300px;
+}
+
+.Selected {
+    background-color: red;
+}
+
+.Unselected {
+    background-color: transparent;
+}
+/*# sourceMappingURL=bundle.css.map*/

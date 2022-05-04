@@ -1,3 +1,7 @@
+var React = require('react');
+
+require('./HeadTable.css');
+
 var HeadTable = React.createClass({
 
   displayName: 'HeadTable',
@@ -23,3 +27,5 @@ var HeadTable = React.createClass({
     );
   },
 });
+
+module.exports = HeadTable;
