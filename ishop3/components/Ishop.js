@@ -5,7 +5,7 @@ import './Ishop.css';
 
 import NameShop from './NameShop';
 import HeadTable from './HeadTable';
-//import Product from './Product';
+import Product from './Product';
 
 class Ishop extends React.Component {
 
@@ -49,13 +49,13 @@ class Ishop extends React.Component {
 
   render() {
 
-      // let productsCode=this.state.workListProducts.map( elem =>
-      //   <Product key={elem.code} code={elem.code} nameProduct={elem.nameProduct} price={elem.price}
-      //     quantity={elem.quantity} imgURL={elem.imgURL} cbSelected={this.productSelected} cbDelete={this.productDelete}
-      //     selectedProductCode={this.state.selectedProductCode} selectedProductDelete={this.state.selectedProductDelete}
-      //     products={this.state.workListProducts} isSelected={(this.state.selectedProductCode === elem.code)}
-      //   />
-      // );
+      let productsCode=this.state.workListProducts.map( elem =>
+        <Product key={elem.code}  nameProduct={elem.nameProduct} code={elem.code} price={elem.price}
+          quantity={elem.quantity} imgURL={elem.imgURL} cbSelected={this.productSelected} cbDelete={this.productDelete}
+          selectedProductCode={this.state.selectedProductCode} selectedProductDelete={this.state.selectedProductDelete}
+          products={this.state.workListProducts} isSelected={(this.state.selectedProductCode === elem.code)}
+        />
+      );
 
     return (
       <table className='Ishop'>
@@ -63,7 +63,7 @@ class Ishop extends React.Component {
       <HeadTable headNameProduct={this.props.head.headNameProduct} headPrice={this.props.head.headPrice}
         headImg={this.props.head.headImg} headQuantity={this.props.head.headQuantity} headControl={this.props.head.headControl}
       />
-      {/* <tbody className='Products'>{productsCode}</tbody> */}
+      <tbody className='Products'>{productsCode}</tbody>
     </table>
     );
 

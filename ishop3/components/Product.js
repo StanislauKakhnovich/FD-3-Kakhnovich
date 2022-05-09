@@ -1,56 +1,53 @@
-var React = require('react');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-require('./Product.css');
+import './Product.css';
 
-var Product = React.createClass({
+class Product extends React.Component {
 
-    displayName: 'Product',
-  
-    propTypes: {
-      isSelected: React.PropTypes.bool.isRequired,
-      cbSelected: React.PropTypes.func.isRequired,
-      selectedProductCode: React.PropTypes.number,
-      workListProducts: React.PropTypes.array.isRequired,
-      workListProducts:React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        nameProduct: React.PropTypes.string.isRequired,
-        code: React.PropTypes.number.isRequired,
-        price: React.PropTypes.number.isRequired,
-        quantity: React.PropTypes.number.isRequired,
-        imgURL: React.PropTypes.string.isRequired,
-      })
-    ),
-        
-    },
+  static propTypes = {
+    isSelected: PropTypes.bool.isRequired,
+      cbSelected: PropTypes.func.isRequired,
+      selectedProductCode: PropTypes.number,
+      workListProducts: PropTypes.array.isRequired,
+      workListProducts: PropTypes.arrayOf(
+        PropTypes.shape({
+          nameProduct: PropTypes.string.isRequired,
+          code: PropTypes.number.isRequired,
+          price: PropTypes.number.isRequired,
+          quantity: PropTypes.number.isRequired,
+          imgURL: PropTypes.string.isRequired,
+        })
+      )
+  }
 
-    productClicked: function(EO) {
-      if (this.props.cbSelected)  this.props.cbSelected(this.props.code);
-    },
-    
-    productDelete: function(EO) {
-      EO.stopPropagation();
-      if (this.props.cbDelete) this.props.cbDelete(this.props.code);
-    },
-    
-  
-    render: function() {
-        return React.DOM.tr( {className:'Product', 
-        className: this.props.isSelected ? 'Selected' : 'Unselected',
-        onClick:this.productClicked,
-        },
-          React.DOM.td({className:'NameProduct'},this.props.nameProduct),
-          React.DOM.td({className:'Price'},this.props.price),
-          React.DOM.td({className:'Quantity'},this.props.quantity),
-          React.DOM.td(null,
-          React.DOM.img({className:'ImgURL', src:this.props.imgURL}),
-          ),
-          React.DOM.td(null,
-            React.DOM.input( {type:'button',value:'Удалить',className:'DeleteButton',onClick:this.productDelete,} )
-            ),
-        );
-  
-    },
-  
-  });
+  productClicked = (EO) => {
+    if (this.props.cbSelected)  this.props.cbSelected(this.props.code);
+  }
 
-module.exports = Product;
+  productDelete = (EO) => {
+    EO.stopPropagation();
+    if (this.props.cbDelete) this.props.cbDelete(this.props.code);
+  }
+
+  render() {
+    return (
+      <tr className={`${'Product'} ${this.props.isSelected ? 'Selected' : 'Unselected'}`} onClick={this.productClicked}>
+        <td className='NameProduct'>{this.props.nameProduct}</td>
+        <td className='Price'>{this.props.nameProduct}</td>
+        <td className='Quantity'>{this.props.quantity}</td>
+        <td>
+          <img className='ImgURL' src={this.props.imgURL}></img>
+        </td>
+        <td>
+          <input type={'button'} value={'удалить'} className ='DeleteButton' onClick={this.productDelete}></input>
+        </td>
+
+      </tr>
+    )
+  }
+
+}
+
+
+export default Product;
