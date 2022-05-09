@@ -1,19 +1,16 @@
-var React = require('react');
+import React from 'react';
+import PropTypes from 'prop-types';
 
-require('./NameShop.css');
+import './NameShop.css';
 
-var NameShop = React.createClass({
+class NameShop extends React.Component {
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+  };
 
-    displayName: 'NameShop',
-  
-    propTypes: {
-        name: React.PropTypes.string.isRequired,
-    },
-  
-    render: function() {
-      return React.DOM.caption( {className:'NameShop'}, this.props.name );
-    },
-  
-  });
+  render () {
+    return <caption className='NameShop'>{this.props.name}</caption>
+  }
+}
 
-module.exports = NameShop;
+export default NameShop;

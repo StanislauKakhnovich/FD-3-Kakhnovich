@@ -1,0 +1,7 @@
+{   
+    "headNameProduct": "Наименование продукции", 
+    "headPrice": "Цена, руб", 
+    "headImg": "Изображение товара", 
+    "headQuantity": "Количество, шт", 
+    "headControl": "Контроль"
+}
