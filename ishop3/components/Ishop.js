@@ -39,7 +39,19 @@ class Ishop extends React.Component {
     isSelected: false,
     selectedProductCard: null,
     selectedProductEdit: null,
+    editMode: true,
+  }
 
+  saveProductChanged = (newDataProduct, code) => { 
+
+    let arr = this.state.workListProducts;
+    for(let i=0; i<arr.length; i++) {
+      if(arr[i].code === code) {
+        arr[i] = newDataProduct;
+      }
+    }
+    this.setState({workListProducts: arr});
+    this.setState({selectedProductCode: null});
   }
 
   productSelected = (code) => {  
@@ -71,7 +83,7 @@ class Ishop extends React.Component {
           quantity={elem.quantity} imgURL={elem.imgURL} cbSelected={this.productSelected} cbDelete={this.productDelete}
           selectedProductCode={this.state.selectedProductCode} selectedProductDelete={this.state.selectedProductDelete}
           products={this.state.workListProducts} isSelected={(this.state.selectedProductCode === elem.code)}
-          cbEdit={this.productSelectedEdit}
+          cbEdit={this.productSelectedEdit} editMode={this.state.editMode}
         />
       );
 
@@ -84,9 +96,8 @@ class Ishop extends React.Component {
       />
       <tbody className='Products'>{productsCode}</tbody>
       </table>
-      <input type={'button'} value={'Новый товар'} className ='NewProductButton' onClick={this.productNew}></input>
+      <input type={'button'} value={'Новый товар'} className ={this.state.editMode?'ButtonIn':'ButtonOff'} onClick={this.productNew}></input>
       {
-
         this.state.selectedProductCode && <CardProduct key={this.state.selectedProductCard.code}
         code={this.state.selectedProductCard.code}
         nameProduct={this.state.selectedProductCard.nameProduct}
@@ -95,6 +106,7 @@ class Ishop extends React.Component {
         imgURL={this.state.selectedProductCard.imgURL}
         selectedProductEdit={this.state.selectedProductEdit}
         selectedProductCode={this.state.selectedProductCode}
+        cbSaved={this.saveProductChanged}
         // workListProducts={this.state.workListProducts}
         />
       }

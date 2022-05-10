@@ -19,15 +19,22 @@
     background-color: transparent;
 }
 
-.DeleteButton,
-.EditButton {
+.ButtonIn {
     font-size: 14px;
     margin: 5px;
     min-width: 120px;
-    
+    background-color: grey;
+}
+.ButtonOff {
+    font-size: 14px;
+    margin: 5px;
+    min-width: 120px;
+    background-color: grey;
+    opacity: 0.5;
 }
 
 .Control,
 .Image {
     text-align: center;
 } 
+

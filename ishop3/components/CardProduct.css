@@ -3,3 +3,51 @@
     font-weight: 900;
     margin: 10px;
 }
+.Code {
+    font-size: 16px;
+    text-align: center;
+}
+
+div.Registration {
+    margin-left: 107px;   
+    margin-top: 10px;  
+}
+
+div.Registration input {
+    width: 390px;
+    box-sizing: border-box;
+}
+input {
+    outline: none;
+    font-size: 12px;
+}
+.Edit {
+    width: 600px;
+    font-size: 18px;
+    padding: 10px;
+    border: solid black 1px;
+}
+label {
+    width: 210px;
+    float: left;
+    clear: left;
+}
+
+.error {
+    display: none;
+    color: red;
+}
+
+#submit {
+    margin-top: 20px;
+}
+
+.HeadProduct {
+    margin: 5px;
+    font-size: 24px;
+    text-align: center;
+}
+
+#codeProduct {
+    border: none;
+}

@@ -10,6 +10,7 @@ class Product extends React.Component {
       cbSelected: PropTypes.func.isRequired,
       cbDelete: PropTypes.func.isRequired,
       cbEdit: PropTypes.func.isRequired,
+      editMode: PropTypes.bool.isRequired,
       selectedProductCode: PropTypes.number,
       workListProducts: PropTypes.array.isRequired,
       workListProducts: PropTypes.arrayOf(
@@ -48,8 +49,8 @@ class Product extends React.Component {
           <img className='ImgURL' src={this.props.imgURL}></img>
         </td>
         <td className='Control'>
-          <input type={'button'} value={'Редактировать'} className ='EditButton' onClick={this.productEdit}></input>
-          <input type={'button'} value={'Удалить'} className ='DeleteButton' onClick={this.productDelete}></input>
+          <input type={'button'} value={'Редактировать'} className ={this.props.editMode?'ButtonIn':'ButtonOff'} onClick={this.productEdit}></input>
+          <input type={'button'} value={'Удалить'} className ={this.props.editMode?'ButtonIn':'ButtonOff'} onClick={this.productDelete}></input>
         </td>
 
       </tr>
