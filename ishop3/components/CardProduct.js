@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import './Product.css';
+import './CardProduct.css';
 
 class CardProduct extends React.Component {
 
@@ -11,6 +11,8 @@ class CardProduct extends React.Component {
           price: PropTypes.number.isRequired,
           quantity: PropTypes.number.isRequired,
           imgURL: PropTypes.string.isRequired,
+          selectedProductEdit: PropTypes.number,
+          selectedProductCode: PropTypes.number,
   }
 
   render() {
@@ -21,7 +23,15 @@ class CardProduct extends React.Component {
         //     <div className='Quantity' >{this.props.quantity}</div>
         //     <img className='ImgURL' src={this.props.imgURL}></img>
         // </Fragment>
+        <Fragment>
+        {
+            this.props.selectedProductEdit === this.props.selectedProductCode
+            ?
+            <div>Режим редактирования{this.props.code}</div>
+            :
         <table>
+            <caption className='HeadCard'>Карточка товара</caption>
+            <tbody>
             <tr>
                 <th className='HeadTable'>Наименование товара</th>
                 <td className='Product'>{this.props.nameProduct}</td>
@@ -38,7 +48,10 @@ class CardProduct extends React.Component {
                 <th className='HeadTable'>Изображение товара</th>
                 <td className='Image'><img className='ImgURL' src={this.props.imgURL}></img></td>
             </tr>
+            </tbody>
         </table>
+        }
+        </Fragment>
 
     )
   }

@@ -8,6 +8,8 @@ class Product extends React.Component {
   static propTypes = {
     isSelected: PropTypes.bool.isRequired,
       cbSelected: PropTypes.func.isRequired,
+      cbDelete: PropTypes.func.isRequired,
+      cbEdit: PropTypes.func.isRequired,
       selectedProductCode: PropTypes.number,
       workListProducts: PropTypes.array.isRequired,
       workListProducts: PropTypes.arrayOf(
@@ -23,6 +25,7 @@ class Product extends React.Component {
 
   productClicked = (EO) => {
     if (this.props.cbSelected)  this.props.cbSelected(this.props.code);
+    
   }
 
   productDelete = (EO) => {
@@ -32,6 +35,7 @@ class Product extends React.Component {
 
   productEdit = (EO) => {
     // EO.stopPropagation();
+    if (this.props.cbEdit) this.props.cbEdit(this.props.code);
   }
 
   render() {
