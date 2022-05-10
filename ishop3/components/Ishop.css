@@ -1,7 +1,7 @@
-﻿.Ishop {
+﻿/* .Ishop {
     margin: 0 auto;
-    
-}
+
+} */
 table {
     border-collapse: collapse;
 }
@@ -9,4 +9,9 @@ table {
 td, th {
     border: 2px solid black;
     padding: 5px;
+}
+
+.NewProductButton {
+    font-size: 14px;
+    margin: 5px;
 }

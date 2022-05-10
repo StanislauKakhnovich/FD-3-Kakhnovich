@@ -1,4 +1,4 @@
-﻿import React from 'react';
+﻿import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './Ishop.css';
@@ -6,6 +6,7 @@ import './Ishop.css';
 import NameShop from './NameShop';
 import HeadTable from './HeadTable';
 import Product from './Product';
+import CardProduct from './CardProduct';
 
 class Ishop extends React.Component {
 
@@ -34,17 +35,24 @@ class Ishop extends React.Component {
 
   state = {
     selectedProductCode: null,
-      workListProducts: this.props.products,
-      isSelected: false,
+    workListProducts: this.props.products,
+    isSelected: false,
+    selectedProduct: null,
+
   }
 
   productSelected = (code) => {  
     this.setState( {selectedProductCode:code} );
+    this.setState({selectedProduct: this.state.workListProducts.find(elem => elem.code === code)})
   }
 
   productDelete = (code) => {  
     var question = confirm(`Удалить ${code} товар?`);
     if (question) this.setState( {workListProducts: this.state.workListProducts.filter(elem => elem.code !== code)} );
+  }
+
+  productNew = () => {
+
   }
 
   render() {
@@ -58,13 +66,25 @@ class Ishop extends React.Component {
       );
 
     return (
+      <Fragment>
       <table className='Ishop'>
       <NameShop name={this.props.name}/>
       <HeadTable headNameProduct={this.props.head.headNameProduct} headPrice={this.props.head.headPrice}
         headImg={this.props.head.headImg} headQuantity={this.props.head.headQuantity} headControl={this.props.head.headControl}
       />
       <tbody className='Products'>{productsCode}</tbody>
-    </table>
+      </table>
+      <input type={'button'} value={'Новый товар'} className ='NewProductButton' onClick={this.productNew}></input>
+      {
+        this.state.selectedProductCode && <CardProduct key={this.state.selectedProduct.code}
+        code={this.state.selectedProduct.code}
+        nameProduct={this.state.selectedProduct.nameProduct}
+        price={this.state.selectedProduct.price}
+        quantity={this.state.selectedProduct.quantity}
+        imgURL={this.state.selectedProduct.imgURL}
+        />
+      }
+      </Fragment>
     );
 
   }

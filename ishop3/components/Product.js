@@ -30,17 +30,22 @@ class Product extends React.Component {
     if (this.props.cbDelete) this.props.cbDelete(this.props.code);
   }
 
+  productEdit = (EO) => {
+    // EO.stopPropagation();
+  }
+
   render() {
     return (
       <tr className={`${'Product'} ${this.props.isSelected ? 'Selected' : 'Unselected'}`} onClick={this.productClicked}>
         <td className='NameProduct'>{this.props.nameProduct}</td>
-        <td className='Price'>{this.props.nameProduct}</td>
+        <td className='Price'>{this.props.price}</td>
         <td className='Quantity'>{this.props.quantity}</td>
-        <td>
+        <td className='Image'>
           <img className='ImgURL' src={this.props.imgURL}></img>
         </td>
-        <td>
-          <input type={'button'} value={'удалить'} className ='DeleteButton' onClick={this.productDelete}></input>
+        <td className='Control'>
+          <input type={'button'} value={'Редактировать'} className ='EditButton' onClick={this.productEdit}></input>
+          <input type={'button'} value={'Удалить'} className ='DeleteButton' onClick={this.productDelete}></input>
         </td>
 
       </tr>
