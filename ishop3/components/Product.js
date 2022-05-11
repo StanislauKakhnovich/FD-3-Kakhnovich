@@ -27,7 +27,6 @@ class Product extends React.Component {
 
   productClicked = (EO) => {
     if (this.props.cbSelected&&this.props.editMode)  this.props.cbSelected(this.props.code);
-    
   }
 
   productDelete = (EO) => {

@@ -1,6 +1,6 @@
 
 div.Registration {
-    margin-left: 107px;   
+    margin-left: 210px;   
     margin-top: 10px;  
 }
 
@@ -24,12 +24,11 @@ label {
     clear: left;
 }
 
-.error {
-    display: none;
+.Error {
     color: red;
 }
 
-#submit {
+.EditButtons {
     margin-top: 20px;
 }
 

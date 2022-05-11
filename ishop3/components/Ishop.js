@@ -59,12 +59,12 @@ class Ishop extends React.Component {
   }
 
   productSelected = (code) => {  
-    this.setState( {selectedProductCode:code}, this.productLeave );
+    this.setState( {selectedProductCode:code}, this.productLeave);
     this.setState({selectedProductCard: this.state.workListProducts.find(elem => elem.code === code)})
   }
 
   productLeave = () => {
-    if (this.state.selectedProductEdit != this.state.selectedProductCode) this.setState( {selectedProductEdit:null} );
+    if (this.state.selectedProductEdit != this.state.selectedProductCode) this.setState( {selectedProductEdit:null, buttonsDeleteNew:true} );
   }
 
   productSelectedEdit = (code) => {
