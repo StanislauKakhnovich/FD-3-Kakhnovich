@@ -14,6 +14,8 @@ class EditProduct extends React.Component {
           selectedProductEdit: PropTypes.number,
           selectedProductCode: PropTypes.number,
           cbSaved: PropTypes.func.isRequired,
+          cbBunButtonsEdit: PropTypes.func.isRequired,
+          cbBunButtonsDeleteNew: PropTypes.func.isRequired,
   }
 
   state = {
@@ -25,18 +27,22 @@ class EditProduct extends React.Component {
 
   productNameChanged = (EO) => {
     this.setState( {newName:EO.target.value} );
+    if (this.props.cbBunButtonsEdit) this.props.cbBunButtonsEdit(false);
   }
 
   productPriceChanged = (EO) => {
     this.setState( {newPrice: +EO.target.value} );
+    if (this.props.cbBunButtonsEdit) this.props.cbBunButtonsEdit(false);
   }
 
   productQuantityChanged = (EO) => {
     this.setState( {newQuantity: +EO.target.value} );
+    if (this.props.cbBunButtonsEdit) this.props.cbBunButtonsEdit(false);
   }
 
   productURLChanged = (EO) => {
     this.setState( {newURL:EO.target.value} );
+    if (this.props.cbBunButtonsEdit) this.props.cbBunButtonsEdit(false);
   }
 
   saveChanged = () => {
@@ -48,6 +54,15 @@ class EditProduct extends React.Component {
           "imgURL":this.state.newURL,
         };
       this.props.cbSaved(objNewData, this.props.code);
+      this.props.cbBunButtonsEdit(true);
+      this.props.cbBunButtonsDeleteNew(true);
+  }
+
+  cancelChanged = () => {
+    let objNewData = false;
+    this.props.cbSaved(objNewData, this.props.code);
+    this.props.cbBunButtonsEdit(true);
+    this.props.cbBunButtonsDeleteNew(true);
   }
 
   render() {
@@ -65,7 +80,7 @@ class EditProduct extends React.Component {
                 <div className="Сlearfix">
                     <label htmlFor='nameProduct'>Название товара:</label>
                     <div className="Registration">
-                        <input  id='nameProduct' type='text' name='nameProduct' defaultValue={this.props.nameProduct} onBlur={this.productNameChanged}/>
+                        <input  id='nameProduct' type='text' name='nameProduct' defaultValue={this.props.nameProduct} onChange={this.productNameChanged}/>
                         {/* <div class="error" id="error1">The field cannot be empty.</div>
                         <div class="error" id="error11">Enter up to 30 characters.</div> */}
                     </div>
@@ -73,7 +88,7 @@ class EditProduct extends React.Component {
                 <div className="Сlearfix">
                     <label htmlFor='priceProduct'>Цена товара, руб:</label>
                     <div className="Registration">
-                        <input  id='priceProduct' type='text' name='priceProduct' defaultValue={this.props.price} onBlur={this.productPriceChanged}/>
+                        <input  id='priceProduct' type='text' name='priceProduct' defaultValue={this.props.price} onChange={this.productPriceChanged}/>
                         {/* <div class="error" id="error1">The field cannot be empty.</div>
                         <div class="error" id="error11">Enter up to 30 characters.</div> */}
                     </div>
@@ -81,7 +96,7 @@ class EditProduct extends React.Component {
                 <div className="Сlearfix">
                     <label htmlFor='quantity'>Количество, шт:</label>
                     <div className="Registration">
-                        <input  id='quantity' type='text' name='quantity' defaultValue={this.props.quantity} onBlur={this.productQuantityChanged}/>
+                        <input  id='quantity' type='text' name='quantity' defaultValue={this.props.quantity} onChange={this.productQuantityChanged}/>
                         {/* <div class="error" id="error1">The field cannot be empty.</div>
                         <div class="error" id="error11">Enter up to 30 characters.</div> */}
                     </div>
@@ -89,12 +104,13 @@ class EditProduct extends React.Component {
                 <div className="Сlearfix">
                     <label htmlFor='urlProduct'>URL изображения товара:</label>
                     <div className="Registration">
-                        <input  id='urlProduct' type='text' name='urlProduct' defaultValue={this.props.imgURL} onBlur={this.productURLChanged}/>
+                        <input  id='urlProduct' type='text' name='urlProduct' defaultValue={this.props.imgURL} onChange={this.productURLChanged}/>
                         {/* <div class="error" id="error1">The field cannot be empty.</div>
                         <div class="error" id="error11">Enter up to 30 characters.</div> */}
                     </div>
                 </div>
-                <button id='submit' className="ButtonIn" onClick={this.saveChanged}>Сохранить</button>
+                <button className={`${'ButtonIn'} ${'EditButtons'}`}  onClick={this.saveChanged}>Сохранить</button>
+                <button className={`${'ButtonIn'} ${'EditButtons'}`} onClick={this.cancelChanged}>Отмена</button>
             </div>
     )
   }

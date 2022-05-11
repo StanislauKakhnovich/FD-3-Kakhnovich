@@ -15,6 +15,8 @@ class CardProduct extends React.Component {
           selectedProductEdit: PropTypes.number,
           selectedProductCode: PropTypes.number,
           cbSaved: PropTypes.func.isRequired,
+          cbBunButtonsEdit: PropTypes.func.isRequired,
+          cbBunButtonsDeleteNew: PropTypes.func.isRequired,
   }
 
   render() {
@@ -32,6 +34,8 @@ class CardProduct extends React.Component {
            selectedProductEdit={this.props.selectedProductEdit}
            selectedProductCode={this.props.selectedProductCode}
            cbSaved={this.props.cbSaved}
+           cbBunButtonsEdit={this.props.cbBunButtonsEdit}
+           cbBunButtonsDeleteNew={this.props.cbBunButtonsDeleteNew}
            />
             :
         <table>

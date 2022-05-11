@@ -40,17 +40,21 @@ class Ishop extends React.Component {
     selectedProductCard: null,
     selectedProductEdit: null,
     editMode: true,
+    buttonsDeleteNew: true,
   }
 
   saveProductChanged = (newDataProduct, code) => { 
 
-    let arr = this.state.workListProducts;
-    for(let i=0; i<arr.length; i++) {
-      if(arr[i].code === code) {
-        arr[i] = newDataProduct;
+    if (newDataProduct) {
+      let arr = this.state.workListProducts;
+      for(let i=0; i<arr.length; i++) {
+        if(arr[i].code === code) {
+          arr[i] = newDataProduct;
+        }
       }
+      this.setState({workListProducts: arr});
     }
-    this.setState({workListProducts: arr});
+    
     this.setState({selectedProductCode: null});
   }
 
@@ -72,6 +76,14 @@ class Ishop extends React.Component {
     if (question) this.setState( {selectedProductCode: null, workListProducts: this.state.workListProducts.filter(elem => elem.code !== code)} );
   }
 
+  bunButtonsEdit = (marker) => {
+    this.setState( {editMode:marker} );
+  }
+
+  bunButtonsDeleteNew = (marker) => {
+    this.setState( {buttonsDeleteNew:marker} );
+  }
+
   productNew = () => {
 
   }
@@ -83,7 +95,8 @@ class Ishop extends React.Component {
           quantity={elem.quantity} imgURL={elem.imgURL} cbSelected={this.productSelected} cbDelete={this.productDelete}
           selectedProductCode={this.state.selectedProductCode} selectedProductDelete={this.state.selectedProductDelete}
           products={this.state.workListProducts} isSelected={(this.state.selectedProductCode === elem.code)}
-          cbEdit={this.productSelectedEdit} editMode={this.state.editMode}
+          cbEdit={this.productSelectedEdit} editMode={this.state.editMode} buttonsDeleteNew={this.state.buttonsDeleteNew}
+          cbBunButtonsDeleteNew={this.bunButtonsDeleteNew}
         />
       );
 
@@ -96,7 +109,7 @@ class Ishop extends React.Component {
       />
       <tbody className='Products'>{productsCode}</tbody>
       </table>
-      <input type={'button'} value={'Новый товар'} className ={this.state.editMode?'ButtonIn':'ButtonOff'} onClick={this.productNew}></input>
+      <input type={'button'} value={'Новый товар'} className ={this.state.buttonsDeleteNew?'ButtonIn':'ButtonOff'} onClick={this.productNew}></input>
       {
         this.state.selectedProductCode && <CardProduct key={this.state.selectedProductCard.code}
         code={this.state.selectedProductCard.code}
@@ -107,7 +120,10 @@ class Ishop extends React.Component {
         selectedProductEdit={this.state.selectedProductEdit}
         selectedProductCode={this.state.selectedProductCode}
         cbSaved={this.saveProductChanged}
-        // workListProducts={this.state.workListProducts}
+        editMode={this.state.editMode}
+        cbBunButtonsEdit={this.bunButtonsEdit}
+        cbBunButtonsDeleteNew={this.bunButtonsDeleteNew}
+        
         />
       }
       </Fragment>

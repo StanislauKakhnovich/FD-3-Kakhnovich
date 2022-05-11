@@ -6,11 +6,12 @@ import './Product.css';
 class Product extends React.Component {
 
   static propTypes = {
-    isSelected: PropTypes.bool.isRequired,
+      isSelected: PropTypes.bool.isRequired,
       cbSelected: PropTypes.func.isRequired,
       cbDelete: PropTypes.func.isRequired,
       cbEdit: PropTypes.func.isRequired,
       editMode: PropTypes.bool.isRequired,
+      buttonsDeleteNew: PropTypes.bool.isRequired,
       selectedProductCode: PropTypes.number,
       workListProducts: PropTypes.array.isRequired,
       workListProducts: PropTypes.arrayOf(
@@ -25,18 +26,20 @@ class Product extends React.Component {
   }
 
   productClicked = (EO) => {
-    if (this.props.cbSelected)  this.props.cbSelected(this.props.code);
+    if (this.props.cbSelected&&this.props.editMode)  this.props.cbSelected(this.props.code);
     
   }
 
   productDelete = (EO) => {
     EO.stopPropagation();
-    if (this.props.cbDelete) this.props.cbDelete(this.props.code);
+    if (this.props.cbDelete&&this.props.editMode&&this.props.buttonsDeleteNew) this.props.cbDelete(this.props.code);
   }
 
   productEdit = (EO) => {
-    // EO.stopPropagation();
-    if (this.props.cbEdit) this.props.cbEdit(this.props.code);
+    if (this.props.cbEdit&&this.props.editMode) this.props.cbEdit(this.props.code);
+    if (this.props.cbBunButtonsDeleteNew) this.props.cbBunButtonsDeleteNew(false);
+
+
   }
 
   render() {
@@ -50,7 +53,7 @@ class Product extends React.Component {
         </td>
         <td className='Control'>
           <input type={'button'} value={'Редактировать'} className ={this.props.editMode?'ButtonIn':'ButtonOff'} onClick={this.productEdit}></input>
-          <input type={'button'} value={'Удалить'} className ={this.props.editMode?'ButtonIn':'ButtonOff'} onClick={this.productDelete}></input>
+          <input type={'button'} value={'Удалить'} className ={this.props.buttonsDeleteNew?'ButtonIn':'ButtonOff'} onClick={this.productDelete}></input>
         </td>
 
       </tr>
