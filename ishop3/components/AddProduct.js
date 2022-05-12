@@ -1,28 +1,27 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
-import './EditProduct.css';
+import './AddProduct.css';
 
-class EditProduct extends React.Component {
+class AddProduct extends React.Component {
 
   static propTypes = {
-          nameProduct: PropTypes.string.isRequired,
-          code: PropTypes.number.isRequired,
-          price: PropTypes.number.isRequired,
-          quantity: PropTypes.number.isRequired,
-          imgURL: PropTypes.string.isRequired,
+    newCode: PropTypes.number,
+          addNewProduct: PropTypes.bool.isRequired,
           selectedProductEdit: PropTypes.number,
           selectedProductCode: PropTypes.number,
-          cbSaved: PropTypes.func.isRequired,
+          cbAddSaved: PropTypes.func.isRequired,
           cbBunButtonsEdit: PropTypes.func.isRequired,
           cbBunButtonsDeleteNew: PropTypes.func.isRequired,
   }
 
   state = {
+      
       newName: this.props.nameProduct,
       newPrice: this.props.price,
       newQuantity: this.props.quantity,
       newURL: this.props.imgURL,
+      buttonSave: false,
       controlName: false,
       controlPrice: false,
       controlQuantity: false,
@@ -55,18 +54,19 @@ class EditProduct extends React.Component {
     !/\w\.((jpg|png){1})$/.test(EO.target.value) ? this.setState( {controlURLFormat:true} ) : this.setState( {controlURLFormat:false});
   }
 
-  saveChanged = () => {
-      if(this.state.newName&&this.state.newPrice&&this.state.newQuantity&&this.state.newURL&&!this.state.controlEmpty&&
-        !this.state.controlName&&!this.state.controlPrice&&!this.state.controlQuantity&&!this.state.controlURLLatin&&
-        !this.state.controlURLFormat) {
+  addNewProduct = () => {
+    if(this.state.newName&&this.state.newPrice&&this.state.newQuantity&&this.state.newURL&&!this.state.controlEmpty&&
+      !this.state.controlName&&!this.state.controlPrice&&!this.state.controlQuantity&&!this.state.controlURLLatin&&
+      !this.state.controlURLFormat) {
+        
         let objNewData = {
             "nameProduct": this.state.newName, 
-            "code":this.props.code, 
+            "code":this.props.newCode, 
             "price":this.state.newPrice, 
             "quantity":this.state.newQuantity, 
             "imgURL":this.state.newURL,
           };
-        this.props.cbSaved(objNewData, this.props.code);
+        this.props.cbAddSaved(objNewData, this.props.code);
         this.props.cbBunButtonsEdit(true);
         this.props.cbBunButtonsDeleteNew(true);
       }
@@ -74,7 +74,7 @@ class EditProduct extends React.Component {
 
   cancelChanged = () => {
     let objNewData = false;
-    this.props.cbSaved(objNewData, this.props.code);
+    this.props.cbAddSaved(objNewData, this.props.code);
     this.props.cbBunButtonsEdit(true);
     this.props.cbBunButtonsDeleteNew(true);
   }
@@ -82,11 +82,11 @@ class EditProduct extends React.Component {
   render() {
     return (
             <div className="Edit"> 
-                <div className="HeadProduct">Редактировать товар</div>
+                <div className="HeadProduct">Новый товар</div>
                 <div className="Сlearfix">
                     <label htmlFor='codeProduct'>Код товара:</label>
                     <div className="Registration">
-                        <input  id='codeProduct' type='text' name='codeProduct' readOnly value={this.props.code}/>
+                        <input  id='codeProduct' type='text' name='codeProduct' readOnly value={this.props.newCode}/>
                     </div>
                 </div>
                 <div className="Сlearfix">
@@ -155,10 +155,7 @@ class EditProduct extends React.Component {
                 <button className={`${this.state.newName&&this.state.newPrice&&this.state.newQuantity&&this.state.newURL&&
                     !this.state.controlEmpty&&!this.state.controlName&&!this.state.controlPrice&&!this.state.controlQuantity&&
                     !this.state.controlURLLatin&&!this.state.controlURLFormat
-                    ?'ButtonIn'
-                    :'ButtonOff'} ${'EditButtons'}`}  onClick={this.saveChanged} value>Сохранить
-                </button>
-
+                    ?'ButtonIn':'ButtonOff'} ${'EditButtons'}`}  onClick={this.addNewProduct}>Сохранить</button>
                 <button className={`${'ButtonIn'} ${'EditButtons'}`} onClick={this.cancelChanged}>Отмена</button>
             </div>
     )
@@ -166,4 +163,4 @@ class EditProduct extends React.Component {
 
 }
 
-export default EditProduct;
+export default AddProduct;

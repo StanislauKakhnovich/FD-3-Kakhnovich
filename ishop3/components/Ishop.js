@@ -7,6 +7,7 @@ import NameShop from './NameShop';
 import HeadTable from './HeadTable';
 import Product from './Product';
 import CardProduct from './CardProduct';
+import AddProduct from './AddProduct';
 
 class Ishop extends React.Component {
 
@@ -41,21 +42,27 @@ class Ishop extends React.Component {
     selectedProductEdit: null,
     editMode: true,
     buttonsDeleteNew: true,
+    addNewProduct: false,
+    newCode: null,
   }
 
   saveProductChanged = (newDataProduct, code) => { 
-
     if (newDataProduct) {
       let arr = this.state.workListProducts;
-      for(let i=0; i<arr.length; i++) {
-        if(arr[i].code === code) {
-          arr[i] = newDataProduct;
-        }
-      }
+      arr.forEach((elem, index,arr)=>elem.code === code&&(arr[index]=newDataProduct))
       this.setState({workListProducts: arr});
     }
-    
     this.setState({selectedProductCode: null});
+  }
+
+  saveProductNew = (newDataProduct) => { 
+    if (newDataProduct) {
+      let arr = this.state.workListProducts;
+      arr.push(newDataProduct);
+      this.setState({workListProducts: arr});
+    }
+    this.setState({selectedProductCode: null});
+    this.setState({addNewProduct: false});
   }
 
   productSelected = (code) => {  
@@ -85,7 +92,15 @@ class Ishop extends React.Component {
   }
 
   productNew = () => {
-
+    this.setState( {addNewProduct:true} );
+    let arr = this.state.workListProducts;
+    let codeArr = [];
+    arr.forEach(elem => codeArr.push(elem.code));
+    let maxCode = Math.max(...codeArr)+1;
+    this.setState( {newCode:maxCode} );
+    this.setState ({editMode:false, buttonsDeleteNew:false, selectedProductCode: null,});
+    
+      
   }
 
   render() {
@@ -123,8 +138,21 @@ class Ishop extends React.Component {
         editMode={this.state.editMode}
         cbBunButtonsEdit={this.bunButtonsEdit}
         cbBunButtonsDeleteNew={this.bunButtonsDeleteNew}
-        
         />
+      }
+      {
+        this.state.addNewProduct&&
+       <AddProduct
+        workListProducts={this.state.workListProducts}
+        selectedProductEdit={this.state.selectedProductEdit}
+        selectedProductCode={this.state.selectedProductCode}
+        cbAddSaved={this.saveProductNew}
+        editMode={this.state.editMode}
+        cbBunButtonsEdit={this.bunButtonsEdit}
+        cbBunButtonsDeleteNew={this.bunButtonsDeleteNew}
+        newCode={this.state.newCode}
+        addNewProduct={this.state.addNewProduct}
+       />
       }
       </Fragment>
     );
