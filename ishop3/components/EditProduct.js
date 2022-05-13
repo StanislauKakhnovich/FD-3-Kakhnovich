@@ -95,11 +95,11 @@ class EditProduct extends React.Component {
                         <input  id='nameProduct' type='text' name='nameProduct' defaultValue={this.props.nameProduct} onChange={this.productNameChanged}/>
                            {
                             !this.state.newName&&
-                            <div className="Error">Поле не должно быть пустым</div>
+                            <div className="ErrorValid">Поле не должно быть пустым</div>
                            }
                            {
                             this.state.controlName&&
-                            <div className="Error">В названии товара должно быть не менее 4 знаков</div>
+                            <div className="ErrorValid">В названии товара должно быть не менее 4 знаков</div>
                            }
                             
                     </div>
@@ -110,11 +110,11 @@ class EditProduct extends React.Component {
                         <input  id='priceProduct' type='text' name='priceProduct' defaultValue={this.props.price} onChange={this.productPriceChanged}/>
                             {
                             !this.state.newPrice&&
-                            <div className="Error">Поле не должно быть пустым</div>
+                            <div className="ErrorValid">Поле не должно быть пустым</div>
                             }
                             {
                             this.state.controlPrice&&
-                            <div className="Error">Должно быть число</div>
+                            <div className="ErrorValid">Должно быть число</div>
                             }
                         
                     </div>
@@ -125,11 +125,11 @@ class EditProduct extends React.Component {
                         <input  id='quantity' type='text' name='quantity' defaultValue={this.props.quantity} onChange={this.productQuantityChanged}/>
                             {
                             !this.state.newQuantity&&
-                            <div className="Error">Поле не должно быть пустым</div>
+                            <div className="ErrorValid">Поле не должно быть пустым</div>
                             }
                             {
                             this.state.controlQuantity&&
-                            <div className="Error">Должно быть число</div>
+                            <div className="ErrorValid">Должно быть число</div>
                             }
                     </div>
                 </div>
@@ -139,15 +139,15 @@ class EditProduct extends React.Component {
                         <input  id='urlProduct' type='text' name='urlProduct' defaultValue={this.props.imgURL} onChange={this.productURLChanged}/>
                             {
                             !this.state.newURL&&
-                            <div className="Error">Поле не должно быть пустым</div>
+                            <div className="ErrorValid">Поле не должно быть пустым</div>
                             }
                             {
                             this.state.controlURLLatin&&
-                            <div className="Error">Название файла должно быть на латинице.</div>
+                            <div className="ErrorValid">Название файла должно быть на латинице.</div>
                             }
                             {
                             this.state.controlURLFormat&&
-                            <div className="Error">Файл должен быть в формате jpg или png</div>
+                            <div className="ErrorValid">Файл должен быть в формате jpg или png</div>
                             }
                         
                     </div>

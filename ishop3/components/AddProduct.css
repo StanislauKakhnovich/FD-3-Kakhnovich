@@ -24,8 +24,9 @@ label {
     clear: left;
 }
 
-.Error {
+.ErrorValid {
     color: red;
+    font-size: 16px;
 }
 
 .EditButtons {
