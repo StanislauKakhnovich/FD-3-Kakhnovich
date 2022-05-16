@@ -4,7 +4,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 
 
-import Main from './components/Ishop';
+import Main from './components/Main';
 
     ReactDOM.render(
       <Main/>
