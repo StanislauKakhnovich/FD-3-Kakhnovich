@@ -12,23 +12,19 @@ class RainbowFrame extends React.Component {
   }
 
   render() {
+    let control;
+     let arr = this.state.colors.map((elem, i)=>{
+      if(i==0){
+        control = <div style={{border:"solid 3px "+elem,padding:"5px"}}><div className='RainbowText'>{this.props.children}</div></div>;
+          return control
+      } 
+      else {
+        control = <div key={i}  style={{border:"solid 3px "+elem,padding:"5px"}}>{control}</div>;
+      } return control
+    })
 
     return (
-        <div style={{border:"solid 3px "+this.state.colors[6],padding:"5px"}}>
-        <div style={{border:"solid 3px "+this.state.colors[5],padding:"5px"}}>
-          <div style={{border:"solid 3px "+this.state.colors[4],padding:"5px"}}>
-            <div style={{border:"solid 3px "+this.state.colors[3],padding:"5px"}}>
-              <div style={{border:"solid 3px "+this.state.colors[2],padding:"5px"}}>
-                <div style={{border:"solid 3px "+this.state.colors[1],padding:"5px"}}>
-                  <div style={{border:"solid 3px "+this.state.colors[0],padding:"5px"}}>
-                    <div className='RainbowText'>{this.props.children}</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <div>{arr[arr.length-1]}</div>
     );
   }
 }
