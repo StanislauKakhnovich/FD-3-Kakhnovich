@@ -12,10 +12,10 @@ class BR2JSX extends React.Component {
   }
 
   render() {
-    let arrBr = this.state.text.replace('<br>', '<br/>').split('<br/>');
-    
+    let arrBr = this.state.text.replace('<br>', '<br/>').split('<br/>') .join('_control_').split('_');
     let arrBr1 = arrBr.map((elem, i) =>{
-       return <Fragment key={i}>{elem}<br/></Fragment>
+       if (elem === 'control') return <br/>
+       else return elem
     })
     return (
         <div className='BR2JSX'>{arrBr1}</div>
