@@ -13,7 +13,7 @@ class RainbowFrame extends React.Component {
 
   render() {
     let control;
-     let arr = this.state.colors.map((elem, i)=>{
+    this.state.colors.forEach((elem, i)=>{
       if(i==0){
         control = <div style={{border:"solid 3px "+elem,padding:"5px"}}><div className='RainbowText'>{this.props.children}</div></div>;
           return control
@@ -23,9 +23,7 @@ class RainbowFrame extends React.Component {
       } return control
     })
 
-    return (
-      <div>{arr[arr.length-1]}</div>
-    );
+    return control;
   }
 }
 
