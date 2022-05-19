@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 let withRainbowFrame= colors => Comp => props =>
   {
     let control;
-     let arr = colors.map((elem, i)=>{
+     colors.forEach((elem, i)=>{
       if(i==0){
         control = <div key={i}  style={{border:"solid 3px "+elem,padding:"5px"}}><Comp {...props} /></div>;
           return control
@@ -15,9 +15,7 @@ let withRainbowFrame= colors => Comp => props =>
       } return control
     })
 
-    return (
-      <div>{arr[arr.length-1]}</div>
-    );
+    return control;
   }
 ;
 
