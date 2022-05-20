@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './BR2JSX.css';
-import Item from './Item'
+
 
 class BR2JSX extends React.Component {
   static propTypes = {
@@ -12,28 +12,21 @@ class BR2JSX extends React.Component {
     list: this.props.text,
   }
 
-  componentWillMount(){
-    let arrBr = this.state.list.replace('<br>', '<br/>').split('<br/>') .join(' control ').split(' ');
-    let arrBrKey = arrBr.map((elem, i) =>{
-      return {'text': elem, 'code': i}
-    })
-    this.setState({list: arrBrKey});
-  }
 
   render() {
+    let arrBr = this.state.list.replace('<br>', '<br/>').split('<br/>') .join(' control ').split(' ');
 
-     let arrBr1 = this.state.list.map(elem =>{
-      if (elem.text == 'control') {
-       return <Item key={elem.code} item={<br/>} list={this.state.list}/>
+     let arrBr1 = arrBr.map((elem, i) =>{
+
+      if (elem == 'control') {
+       return  <br key={i}/>
       }else {
-        return <Item key={elem.code} item={elem.text} list={this.state.list}/>
+        return  elem
       }
-     }
-      
-    )
+     });
 
     return (
-        <div className='BR2JSX'>{arrBr1}</div>
+        <div  className='BR2JSX'>{arrBr1}</div>
          
     );
   }
