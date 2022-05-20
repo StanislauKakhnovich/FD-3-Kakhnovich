@@ -14,20 +14,18 @@ class BR2JSX extends React.Component {
 
 
   render() {
-    let arrBr = this.state.list.replace('<br>', '<br/>').split('<br/>') .join(' control ').split(' ');
+    let arrBr = this.state.list.split(/<br>|<br\/>/);
 
-     let arrBr1 = arrBr.map((elem, i) =>{
-
-      if (elem == 'control') {
-       return  <br key={i}/>
-      }else {
-        return  elem
+     let arrBr1 = [];
+     arrBr.forEach((elem, i) =>{
+        arrBr1.push(elem)  
+      if (i!=arrBr.length-1) {
+        arrBr1.push(<br key={Math.random()}/>)  
       }
      });
 
     return (
         <div  className='BR2JSX'>{arrBr1}</div>
-         
     );
   }
 }

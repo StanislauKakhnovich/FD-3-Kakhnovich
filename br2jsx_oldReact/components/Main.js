@@ -20,7 +20,7 @@ class Main extends React.Component {
     
       let text="первый<br>второй<br/>третий<br/>последний";
       return(
-        <BR2JSX text={text}>{this.props.key}</BR2JSX>
+        <BR2JSX text={text}></BR2JSX>
       ) ;
     }
   }
