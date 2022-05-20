@@ -8,11 +8,10 @@ let withRainbowFrame= colors => Comp => props =>
      colors.forEach((elem, i)=>{
       if(i==0){
         control = <div key={i}  style={{border:"solid 3px "+elem,padding:"5px"}}><Comp {...props} /></div>;
-          return control
       } 
       else {
         control = <div key={i}  style={{border:"solid 3px "+elem,padding:"5px"}}>{control}</div>;
-      } return control
+      } 
     })
 
     return control;

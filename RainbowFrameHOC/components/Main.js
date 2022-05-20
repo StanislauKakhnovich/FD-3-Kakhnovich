@@ -9,27 +9,28 @@ import withRainbowFrame from './withRainbowFrame';
 
 class Main extends React.Component {
 
-  // static propTypes = {
-  // }
-
    state = {
      firstRender: true,
+     caption1: 'однажды',
+     caption2: 'пору',
    }
 
-   changeFirstRender = (boolValue) => {
-    this.setState( {firstRender:boolValue} );
+   changeRender = (arg) => {
+    arg
+    ?
+    this.setState( {caption1: 'однажды', caption2: 'пору', firstRender: true} )
+    :
+    this.setState( {caption1: 'я из лесу', caption2: 'мороз', firstRender: false} );
   } 
 
   render() {
 
     let colors = ['red','orange', 'yellow','green', '#00BFFF', 'blue', 'purple'];
-    let caption1 = ['однажды', 'пору'];
-    let caption2 = ['я из лесу', 'мороз'];
     let FramedDoubleButton = withRainbowFrame(colors)(DoubleButton)
 
   return (
     <div className='Main'>
-    <FramedDoubleButton caption1={caption1} caption2={caption2} firstRender={this.state.firstRender} cbPressed={this.changeFirstRender}>{this.state.firstRender?'в студеную зимнюю пору':'вышел, был сильный мороз'}</FramedDoubleButton>
+    <FramedDoubleButton caption1={this.state.caption1} caption2={this.state.caption2} cbPressed={this.changeRender}>{this.state.firstRender?'в студеную зимнюю пору':'вышел, был сильный мороз'}</FramedDoubleButton>
     </div>
   );
   }
