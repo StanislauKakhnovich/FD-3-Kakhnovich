@@ -8,19 +8,15 @@ class BR2JSX extends React.Component {
   static propTypes = {
     text: PropTypes.string,
   };
-  state = {
-    list: this.props.text,
-  }
-
 
   render() {
-    let arrBr = this.state.list.split(/<br>|<br\/>/);
+    let arrBr = this.props.text.split(/<br>|<br\/>/);
 
      let arrBr1 = [];
      arrBr.forEach((elem, i) =>{
         arrBr1.push(elem)  
       if (i!=arrBr.length-1) {
-        arrBr1.push(<br key={Math.random()}/>)  
+        arrBr1.push(<br key={i}/>)  
       }
      });
 
