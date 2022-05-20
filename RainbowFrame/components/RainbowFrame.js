@@ -16,11 +16,10 @@ class RainbowFrame extends React.Component {
     this.state.colors.forEach((elem, i)=>{
       if(i==0){
         control = <div style={{border:"solid 3px "+elem,padding:"5px"}}><div className='RainbowText'>{this.props.children}</div></div>;
-          return control
       } 
       else {
         control = <div key={i}  style={{border:"solid 3px "+elem,padding:"5px"}}>{control}</div>;
-      } return control
+      } 
     })
 
     return control;
