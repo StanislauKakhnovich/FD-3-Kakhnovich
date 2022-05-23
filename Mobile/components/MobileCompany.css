@@ -1,0 +1,27 @@
+﻿.MobileCompany {
+    line-height: 50px;
+}
+
+.FilterButtons {
+    line-height: 50px;
+    border-top: solid 1px ;
+    border-bottom: solid 1px;
+}
+
+.ListClients{
+    margin-top: 30px;
+}
+table {
+    border-collapse: collapse;
+}
+
+td, th {
+    border: 2px solid black;
+    padding: 5px;
+    padding: 10px;
+}
+
+.HeadTable {
+    font-size: 18px;
+}
+
