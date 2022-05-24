@@ -2,6 +2,7 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './AddClient.css';
+import clientEvents from './events';
 
 class AddClient extends React.PureComponent {
 
@@ -10,6 +11,7 @@ class AddClient extends React.PureComponent {
   }
 
   state = {
+      clientId: 'xxx',
       controlEmpty: false,
       newName: this.props.nameProduct,
       newPrice: this.props.price,
@@ -45,9 +47,18 @@ class AddClient extends React.PureComponent {
   }
 
   render() {
+
+    console.log("Form AddClient render");
+
     return (
             <div className="Edit"> 
                 <div className="HeadClient">Новый клиент</div>
+                <div className="Сlearfix">
+                    <label htmlFor='clientId'>Код клиента:</label>
+                    <div className="Registration">
+                        <input  id='clientId' type='text' name='clientId' readOnly defaultValue={this.state.clientId} onChange={this.productNameChanged}/>
+                    </div>
+                </div>
                 <div className="Сlearfix">
                     <label htmlFor='surname'>Фамилия:</label>
                     <div className="Registration">
