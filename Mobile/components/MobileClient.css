@@ -1,9 +1,17 @@
 .Button {
     margin: 5px 0;
+    width: auto;
 }
 
-.Balance,
-.Edit,
-.Delete {
-    text-align: center;
+input {
+    outline: none;
+    width: 80px;
+}
+
+.Editing-disabled {
+    border: none;
+}
+
+.Editing-enabled {
+    border: solid 2px;
 }

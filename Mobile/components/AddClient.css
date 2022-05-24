@@ -1,0 +1,58 @@
+
+div.Registration {
+    margin-left: 210px;   
+    margin-top: 10px;  
+}
+
+div.Registration input {
+    width: 390px;
+    box-sizing: border-box;
+}
+input {
+    outline: none;
+    font-size: 14px;
+}
+.Edit {
+    width: 600px;
+    font-size: 16px;
+    padding: 10px;
+    border: solid black 1px;
+}
+label {
+    width: 210px;
+    float: left;
+    clear: left;
+}
+
+.ErrorValid {
+    color: red;
+    font-size: 14px;
+}
+
+.EditButtons {
+    margin-top: 20px;
+}
+
+.HeadClient {
+    margin: 5px;
+    font-size: 20px;
+    text-align: center;
+}
+
+#codeProduct {
+    border: none;
+}
+
+.ButtonIn {
+    font-size: 14px;
+    margin: 5px;
+    min-width: 120px;
+    background-color: grey;
+}
+.ButtonOff {
+    font-size: 14px;
+    margin: 5px;
+    min-width: 120px;
+    background-color: grey;
+    opacity: 0.5;
+}

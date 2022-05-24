@@ -4,10 +4,11 @@ import PropTypes from 'prop-types';
 import './MobileCompany.css';
 
 import MobileClient from './MobileClient';
+import AddClient from './AddClient';
 
 
 
-class MobileCompany extends React.Component {
+class MobileCompany extends React.PureComponent {
 
   static propTypes = {
     name: PropTypes.string.isRequired,

@@ -6,6 +6,7 @@
     line-height: 50px;
     border-top: solid 1px ;
     border-bottom: solid 1px;
+    width: 95vw;
 }
 
 .ListClients{
@@ -13,15 +14,20 @@
 }
 table {
     border-collapse: collapse;
+    width: 95vw;
+
 }
 
 td, th {
-    border: 2px solid black;
+    border-top: 2px solid;
+    border-bottom: 2px solid;
     padding: 5px;
     padding: 10px;
 }
 
 .HeadTable {
     font-size: 18px;
+    text-align: left;
 }
+
 
