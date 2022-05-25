@@ -12,61 +12,46 @@ class MobileClient extends React.PureComponent {
 
    state={
      clientHash: this.props.clientHash,
-     newClientHash: null,
      editMode: false,
    }
 
-   newSurnameRef = null;
-   newBalance = null;
+   newSurnameRef = this.state.clientHash.surname;
+   newNameRef = this.state.clientHash.name;
+   newPatronymicRef = this.state.clientHash.patronymic;
+   newBalanceRef = this.state.clientHash.balance;
 
    setNewSurnameRef = (ref) => {
     this.newSurnameRef=ref;
   };
-
+  setNewNameRef = (ref) => {
+    this.newNameRef=ref;
+  };
+  setNewPatronymicRef = (ref) => {
+    this.newPatronymicRef=ref;
+  };
   setNewBalanceRef = (ref) => {
     this.newBalanceRef=ref;
   };
 
-
-
-  // setNewSurname = () => {
-  //   if ( this.newSurnameRef ) {
-  //     let newSurname= {...this.state.clientHash, surname:this.newSurnameRef.value};
-  //     this.setState({clientHash: newSurname, editMode: false});
-  //   }
-  // };
-
-  //current
-
   changeHash =(EO) => {
-    if ( this.newSurnameRef ) {
-      let newSurname= {...this.state.clientHash, surname:this.newSurnameRef.value, balance: ~~this.newBalanceRef.value};
-      this.setState({newClientHash: newSurname});
-      console.log(this.state.newClientHash)
+    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
+      let newHash= {...this.state.clientHash, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
+      this.setState({clientHash: newHash});
     }
   }
   
   saveClicked = (EO) => {
-    //this.props.cbSelected(this.props.code);
     this.setState({editMode: false});
-    
-    clientEvents.emit('ESaveClicked', this.state.newClientHash);
+    clientEvents.emit('ESaveClicked', this.state.clientHash);
   }
-
-  // getChanges =()=> {
-  //   this.setState({})
-  // }
-
-  // freeAnswerTextChanged = (EO) => { 
-  //   console.log('VotesAnswer: текст свободного ответа изменён - '+EO.target.value); 
-  //   //this.props.cbFreeAnswerTextChanged(EO.target.value);
-  //   voteEvents.emit('EFreeAnswerTextChanged',EO.target.value);
-  // }
 
   clientEdit = () => {
     this.setState({editMode: true})
   }
 
+  productDelete = () => {
+    clientEvents.emit('EDeleteClicked', this.state.clientHash.id);
+  }
 
   render() {
     console.log("MobileClient id="+this.state.clientHash.id+" render");
@@ -75,18 +60,18 @@ class MobileClient extends React.PureComponent {
     
     <tr className='Client'>
     <td className='Surname'>
-      <input type={'text'} name={'surname'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.surname} ref={this.setNewSurnameRef}></input>
+      <input type={'text'} name={'surname'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.surname} ref={this.setNewSurnameRef} onBlur={this.changeHash}></input>
     </td>
     <td className='Name'>
-      <input type={'text'} name={'name'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.name}></input>
+      <input type={'text'} name={'name'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.name} ref={this.setNewNameRef} onBlur={this.changeHash}></input>
     </td>
     <td className='Patronymic'>
-      <input type={'text'} name={'patronymic'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.patronymic}></input>
+      <input type={'text'} name={'patronymic'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.patronymic} ref={this.setNewPatronymicRef} onBlur={this.changeHash}></input>
     </td>
     <td className='Balance'>
       <input type={'text'} name={'balance'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.balance} ref={this.setNewBalanceRef} onBlur={this.changeHash}></input>
     </td>
-    <td className='Status' style={{backgroundColor:(this.props.clientHash.balance>0)?'green':'red'}}>{this.state.clientHash.balance>0?'active':'blocked'}</td>
+    <td className='Status' style={{backgroundColor:(this.state.clientHash.balance>0)?'green':'red'}}>{this.state.clientHash.balance>0?'active':'blocked'}</td>
     <td className='EditButton'>
       <input type={'button'} value={'Редактировать'} className ='Button' onClick={this.clientEdit}></input>
       {

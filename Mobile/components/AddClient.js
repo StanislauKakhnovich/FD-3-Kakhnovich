@@ -2,53 +2,54 @@ import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 
 import './AddClient.css';
-import clientEvents from './events';
+import {clientEvents} from './events';
 
 class AddClient extends React.PureComponent {
 
   static propTypes = {
-
+    newClientId: PropTypes.number.isRequired,
   }
 
   state = {
-      clientId: 'xxx',
-      controlEmpty: false,
-      newName: this.props.nameProduct,
-      newPrice: this.props.price,
-      newQuantity: this.props.quantity,
-      newURL: this.props.imgURL,
-
+    newClientHash: null,
   }
 
+  newSurnameRef = null;
+   newNameRef = null;
+   newPatronymicRef = null;
+   newBalanceRef = null;
 
-  addNewProduct = () => {
-    if(this.state.newName&&this.state.newPrice&&this.state.newQuantity&&this.state.newURL&&!this.state.controlEmpty&&
-      !this.state.controlName&&!this.state.controlPrice&&!this.state.controlQuantity&&!this.state.controlURLLatin&&
-      !this.state.controlURLFormat) {
-        
-        let objNewData = {
-            "nameProduct": this.state.newName, 
-            "code":this.props.newCode, 
-            "price":this.state.newPrice, 
-            "quantity":this.state.newQuantity, 
-            "imgURL":this.state.newURL,
-          };
-        this.props.cbAddSaved(objNewData, this.props.code);
-        this.props.cbBunButtonsEdit(true);
-        this.props.cbBunButtonsDeleteNew(true);
-      }
+   setNewSurnameRef = (ref) => {
+    this.newSurnameRef=ref;
+  };
+  setNewNameRef = (ref) => {
+    this.newNameRef=ref;
+  };
+  setNewPatronymicRef = (ref) => {
+    this.newPatronymicRef=ref;
+  };
+  setNewBalanceRef = (ref) => {
+    this.newBalanceRef=ref;
+  };
+
+  createHash =(EO) => {
+    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
+      let newHash= {id: this.props.newClientId, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
+      this.setState({newClientHash: newHash});
+      
+    }
   }
 
-  cancelChanged = () => {
-    let objNewData = false;
-    this.props.cbAddSaved(objNewData, this.props.code);
-    this.props.cbBunButtonsEdit(true);
-    this.props.cbBunButtonsDeleteNew(true);
+  saveNewClient = (EO) => {
+    clientEvents.emit('ESaveNewClient', this.state.newClientHash);
+  }
+
+  cancelNewClient = (EO) => {
+    clientEvents.emit('ECancelNewClient');
   }
 
   render() {
-
-    console.log("Form AddClient render");
+    console.log("AddClient render");
 
     return (
             <div className="Edit"> 
@@ -56,52 +57,35 @@ class AddClient extends React.PureComponent {
                 <div className="Сlearfix">
                     <label htmlFor='clientId'>Код клиента:</label>
                     <div className="Registration">
-                        <input  id='clientId' type='text' name='clientId' readOnly defaultValue={this.state.clientId} onChange={this.productNameChanged}/>
+                        <input  id='clientId' type='text' name='clientId' readOnly defaultValue={this.props.newClientId} />
                     </div>
                 </div>
                 <div className="Сlearfix">
                     <label htmlFor='surname'>Фамилия:</label>
                     <div className="Registration">
-                        <input  id='surname' type='text' name='surname' onChange={this.productNameChanged}/>
-                           {
-                           !this.state.controlEmpty&&
-                            <div className="ErrorValid">Поле не должно быть пустым</div>
-                           }
+                        <input  id='surname' type='text' name='surname' ref={this.setNewSurnameRef} onBlur={this.createHash}/>
                     </div>
                 </div>
                 <div className="Сlearfix">
                     <label htmlFor='name'>Имя:</label>
                     <div className="Registration">
-                        <input  id='name' type='text' name='name' onChange={this.productPriceChanged}/>
-                            {
-                            !this.state.controlEmpty&&
-                            <div className="ErrorValid">Поле не должно быть пустым</div>
-                            }
+                        <input  id='name' type='text' name='name' ref={this.setNewNameRef} onBlur={this.createHash}/>
                     </div>
                 </div>
                 <div className="Сlearfix">
-                    <label htmlFor='patronymic'>Количество, шт:</label>
+                    <label htmlFor='patronymic'>Отчество:</label>
                     <div className="Registration">
-                        <input  id='patronymic' type='text' name='patronymic' onChange={this.productQuantityChanged}/>
-                            {
-                            !this.state.controlEmpty&&
-                            <div className="ErrorValid">Поле не должно быть пустым</div>
-                            }
+                        <input  id='patronymic' type='text' name='patronymic'ref={this.setNewPatronymicRef} onBlur={this.createHash} />
                     </div>
                 </div>
                 <div className="Сlearfix">
-                    <label htmlFor='balance'>URL изображения товара:</label>
+                    <label htmlFor='balance'>Баланс:</label>
                     <div className="Registration">
-                        <input  id='balance' type='text' name='balance' onChange={this.productURLChanged}/>
-                            {
-                            !this.state.controlEmpty&&
-                            <div className="ErrorValid">Поле не должно быть пустым</div>
-                            }
+                        <input  id='balance' type='text' name='balance' ref={this.setNewBalanceRef} onBlur={this.createHash}/>
                     </div>
                 </div>
-                <button className={`${this.state.controlEmpty
-                    ?'ButtonIn':'ButtonOff'} ${'EditButtons'}`}  onClick={this.addNewProduct}>Сохранить</button>
-                <button className={`${'ButtonIn'} ${'EditButtons'}`} onClick={this.cancelChanged}>Отмена</button>
+                <button className={`${'EditButtons'}`}  onClick={this.saveNewClient}>Сохранить</button>
+                <button className={`${'EditButtons'}`} onClick={this.cancelNewClient}>Отмена</button>
             </div>
     )
   }

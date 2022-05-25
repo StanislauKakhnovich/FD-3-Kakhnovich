@@ -7,9 +7,6 @@ import MobileClient from './MobileClient';
 import AddClient from './AddClient';
 import {clientEvents} from './events';
 
-
-
-
 class MobileCompany extends React.PureComponent {
 
   static propTypes = {
@@ -20,9 +17,7 @@ class MobileCompany extends React.PureComponent {
         surname: PropTypes.string.isRequired,
         name: PropTypes.string.isRequired,
         patronymic: PropTypes.string.isRequired,
-        balance: PropTypes.number.isRequired,
-        
-        
+        balance: PropTypes.number.isRequired,     
       })
     ),
    }
@@ -36,7 +31,7 @@ class MobileCompany extends React.PureComponent {
      renderAll: true,
      renderActive: false,
      renderBlocked: false,
-
+     newClientId: null,
    }
 
    setName1 = () => {
@@ -60,56 +55,72 @@ class MobileCompany extends React.PureComponent {
     this.setState({renderAll: false, renderActive: false, renderBlocked: true})
   }
 
+  productNew = () => {
+    this.setState({addNewClient: true});
+    let arr = this.state.clientsList;
+    let idArr = [];
+    arr.forEach(elem => idArr.push(elem.id));
+    let maxId = Math.max(...idArr)+1;
+    this.setState( {newClientId:maxId} );
+  }
+
   componentDidMount = () => {
     clientEvents.addListener('ESaveClicked',this.clientChange);
+    clientEvents.addListener('EDeleteClicked',this.clientDelete);
+    clientEvents.addListener('ESaveNewClient',this.addNewClient);
+    clientEvents.addListener('ECancelNewClient',this.cancelNewClient);
   };
 
   componentWillUnmount = () => {
     clientEvents.removeListener('ESaveClicked',this.clientChange);
+    clientEvents.removeListener('EDeleteClicked',this.clientDelete);
+    clientEvents.removeListener('ESaveNewClient',this.addNewClient);
+    clientEvents.removeListener('ECancelNewClient',this.cancelNewClient);
   };
 
   clientChange = (obj) => {
     if (obj) {
-      let arr = this.state.clientsList;
-      arr.forEach((elem, index,arr)=>elem.id === obj.id&&(arr[index]=obj))
+      let changed=false;
+      let arr = this.state.clientsList.slice();
+      arr.forEach((elem, i)=> {
+        if ( elem.id==obj.id) {
+          let newClient={...elem};
+          newClient=obj;
+          arr[i]=newClient;
+          changed=true;
+        }
+      } );
+      if ( changed )
       this.setState({clientsList: arr});
-      console.log(this.state.clientsList)
     }
-
-
-    // console.log(obj);
-    // let newArr= [...this.state.clientsList];
-    // newArr.map((elem, i) => {
-    //   if (elem.id==obj.id) {
-    //     elem ={...obj};
-    //     console.log(elem)
-    //   } 
-      
-    // })
-    // console.log(newArr);
-    
+  }
+  
+  clientDelete = (id) => {  
+    this.setState( {clientsList: this.state.clientsList.filter(elem => elem.id !== id)} );
   }
 
-  // setBalance = (clientId,newBalance) => {
-  //   let changed=false;
-  //   let newClients=[...this.state.clients]; // копия самого массива клиентов
-  //   newClients.forEach( (c,i) => {
-  //     if ( c.id==clientId && c.balance!=newBalance ) {
-  //       let newClient={...c}; // копия хэша изменившегося клиента
-  //       newClient.balance=newBalance;
-  //       newClients[i]=newClient;
-  //       changed=true;
-  //     }
-  //   } );
-  //   if ( changed )
-  //     this.setState({clients:newClients});
-  // };
+  addNewClient = (obj => {
+    if (obj) {
+      let arr = this.state.clientsList.slice();
+      arr.push(obj);
+      this.setState({clientsList: arr});
+    }
+    this.setState({addNewClient: false});
+  })
+
+
+
+
+  cancelNewClient = () => {
+    this.setState({addNewClient: false});
+  }
+
+
 
 
   render() {
     
     console.log("MobileCompany render");
-
 
     let clientsArr=this.state.clientsList.map(elem => {
       if (this.state.renderAll) return <MobileClient key={elem.id} clientHash={elem}/>
@@ -117,18 +128,17 @@ class MobileCompany extends React.PureComponent {
       else if (this.state.renderBlocked) return  elem.balance <= 0 && <MobileClient key={elem.id}  clientHash={elem}/>
     });
 
-
   return (
     <div>
     <div>
-      <input type={'button'}  id={1} value='Velcom' className ={'Button'} onClick={this.setName1}></input>
-      <input type={'button'}  id={2} value='МТС' className ={'Button'} onClick={this.setName2}></input>
+      <input type={'button'} value='Velcom' className ={'Button'} onClick={this.setName1}></input>
+      <input type={'button'} value='МТС' className ={'Button'} onClick={this.setName2}></input>
       <div  className='MobileCompany'>Компания: {this.state.name}</div>
     </div>
      <div className='FilterButtons'>
-       <input type={'button'}  id={3} value='Все' className ={'Button'} onClick={this.getAll}></input>
-       <input type={'button'}  id={4} value='Активные' className ={'Button'} onClick={this.getActived}></input>
-       <input type={'button'}  id={5} value='Заблокированные' className ={'Button'} onClick={this.getBlocked}></input>
+       <input type={'button'} value='Все' className ={'Button'} onClick={this.getAll}></input>
+       <input type={'button'} value='Активные' className ={'Button'} onClick={this.getActived}></input>
+       <input type={'button'} value='Заблокированные' className ={'Button'} onClick={this.getBlocked}></input>
      </div>
      <table className='ListClients'>
       <thead className='HeadTable'>
@@ -147,8 +157,7 @@ class MobileCompany extends React.PureComponent {
     <input type={'button'} value={'Добавить клиента'} className ='Button' onClick={this.productNew}></input>
     {
         this.state.addNewClient&&
-       <AddClient
-       />
+       <AddClient newClientId={this.state.newClientId}/>
       }
     </div>
   );
