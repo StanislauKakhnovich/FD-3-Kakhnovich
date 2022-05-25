@@ -32,17 +32,17 @@ class AddClient extends React.PureComponent {
     this.newBalanceRef=ref;
   };
 
-  createHash =(EO) => {
-    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
-      let newHash= {id: this.props.newClientId, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
-      this.setState({newClientHash: newHash});
-      
-    }
-  }
 
   saveNewClient = (EO) => {
+    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
+      let obj= {id: this.props.newClientId, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
+      this.setState({newClientHash: obj}, this.postSave);
+    }
+ }
+
+    postSave =()=>{
     clientEvents.emit('ESaveNewClient', this.state.newClientHash);
-  }
+    }
 
   cancelNewClient = (EO) => {
     clientEvents.emit('ECancelNewClient');
@@ -63,25 +63,25 @@ class AddClient extends React.PureComponent {
                 <div className="Сlearfix">
                     <label htmlFor='surname'>Фамилия:</label>
                     <div className="Registration">
-                        <input  id='surname' type='text' name='surname' ref={this.setNewSurnameRef} onBlur={this.createHash}/>
+                        <input  id='surname' type='text' name='surname' ref={this.setNewSurnameRef}/>
                     </div>
                 </div>
                 <div className="Сlearfix">
                     <label htmlFor='name'>Имя:</label>
                     <div className="Registration">
-                        <input  id='name' type='text' name='name' ref={this.setNewNameRef} onBlur={this.createHash}/>
+                        <input  id='name' type='text' name='name' ref={this.setNewNameRef}/>
                     </div>
                 </div>
                 <div className="Сlearfix">
                     <label htmlFor='patronymic'>Отчество:</label>
                     <div className="Registration">
-                        <input  id='patronymic' type='text' name='patronymic'ref={this.setNewPatronymicRef} onBlur={this.createHash} />
+                        <input  id='patronymic' type='text' name='patronymic'ref={this.setNewPatronymicRef} />
                     </div>
                 </div>
                 <div className="Сlearfix">
                     <label htmlFor='balance'>Баланс:</label>
                     <div className="Registration">
-                        <input  id='balance' type='text' name='balance' ref={this.setNewBalanceRef} onBlur={this.createHash}/>
+                        <input  id='balance' type='text' name='balance' ref={this.setNewBalanceRef}/>
                     </div>
                 </div>
                 <button className={`${'EditButtons'}`}  onClick={this.saveNewClient}>Сохранить</button>

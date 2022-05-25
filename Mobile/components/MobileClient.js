@@ -13,6 +13,7 @@ class MobileClient extends React.PureComponent {
    state={
      clientHash: this.props.clientHash,
      editMode: false,
+     newHash: null,
    }
 
    newSurnameRef = this.state.clientHash.surname;
@@ -33,17 +34,17 @@ class MobileClient extends React.PureComponent {
     this.newBalanceRef=ref;
   };
 
-  changeHash =(EO) => {
-    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
-      let newHash= {...this.state.clientHash, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
-      this.setState({clientHash: newHash});
-    }
-  }
-  
   saveClicked = (EO) => {
-    this.setState({editMode: false});
-    clientEvents.emit('ESaveClicked', this.state.clientHash);
+    let obj = {...this.state.clientHash};
+    if ( this.newSurnameRef&&this.newNameRef&&this.newPatronymicRef&&this.newBalanceRef ) {
+      obj= {...obj, surname:this.newSurnameRef.value, name:this.newNameRef.value, patronymic:this.newPatronymicRef.value, balance: +this.newBalanceRef.value};
+      this.setState({newHash: obj, clientHash: obj, editMode: false}, this.postSave);
   }
+}
+
+postSave =()=>{
+  clientEvents.emit('ESaveClicked', this.state.newHash);
+}
 
   clientEdit = () => {
     this.setState({editMode: true})
@@ -60,16 +61,16 @@ class MobileClient extends React.PureComponent {
     
     <tr className='Client'>
     <td className='Surname'>
-      <input type={'text'} name={'surname'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.surname} ref={this.setNewSurnameRef} onBlur={this.changeHash}></input>
+      <input type={'text'} name={'surname'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.surname} ref={this.setNewSurnameRef} ></input>
     </td>
     <td className='Name'>
-      <input type={'text'} name={'name'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.name} ref={this.setNewNameRef} onBlur={this.changeHash}></input>
+      <input type={'text'} name={'name'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.name} ref={this.setNewNameRef} ></input>
     </td>
     <td className='Patronymic'>
-      <input type={'text'} name={'patronymic'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.patronymic} ref={this.setNewPatronymicRef} onBlur={this.changeHash}></input>
+      <input type={'text'} name={'patronymic'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.patronymic} ref={this.setNewPatronymicRef} ></input>
     </td>
     <td className='Balance'>
-      <input type={'text'} name={'balance'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.balance} ref={this.setNewBalanceRef} onBlur={this.changeHash}></input>
+      <input type={'text'} name={'balance'} className={this.state.editMode?'Editing-enabled':'Editing-disabled'} readOnly={this.state.editMode?false:true} defaultValue={this.state.clientHash.balance} ref={this.setNewBalanceRef} ></input>
     </td>
     <td className='Status' style={{backgroundColor:(this.state.clientHash.balance>0)?'green':'red'}}>{this.state.clientHash.balance>0?'active':'blocked'}</td>
     <td className='EditButton'>
